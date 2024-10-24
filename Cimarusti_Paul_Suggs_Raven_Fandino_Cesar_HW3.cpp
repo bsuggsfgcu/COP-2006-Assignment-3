@@ -51,9 +51,50 @@ float GetFloat()
     }
 }
 
+//Logic from given flowchart
+//Principle is a pointer since it changes while rate and payment are constant
+void Amortization(float *principle, float interestRate, float payment)
+{
+    while(*principle > 0)
+    {
+        //Must first pay off interest first (a % of principle)
+        //Divide interestRate / 100 to get from % to decimal and by 12 to convert from yearly interest to monthly interest
+        float interestPaid = *principle * (interestRate / 100 / 12);
+        //Then the rest of the payment goes to principle
+        float principlePaid = payment - interestPaid;
+
+        if(interestPaid > payment)
+        {
+            std::cout << "Monthly payment too low to keep up with interest, " << std::endl;
+            std::cout << "Payment must be greater than " << interestPaid << " for this interest rate and principle." << std::endl;
+            break;
+        }
+
+        if(principlePaid > *principle)
+        {
+            //To stop the payment from overflowing past the principle
+            principlePaid = *principle;
+        }
+        //Prints a line for the amortization schedule
+        std::cout << *principle << " " << interestPaid << " " << principlePaid << " " << payment << " " << *principle - principlePaid << std::endl ;
+        *principle = *principle - principlePaid;
+    }
+}
 
 int main()
 {
-    std::cout << "Hello, World!" << std::endl;
+    float principle;
+    float interestRate;
+    float payment;
+
+    std::cout << "Enter Principle: " << std::endl;
+    principle = GetFloat();
+    std::cout << "Enter Interest Rate (in percent %):" << std::endl;
+    interestRate = GetFloat();
+    std::cout << "Enter Monthly Payment: " << std::endl;
+    payment = GetFloat();
+
+    Amortization(&principle, interestRate, payment);
+    
     return 0;
 }
