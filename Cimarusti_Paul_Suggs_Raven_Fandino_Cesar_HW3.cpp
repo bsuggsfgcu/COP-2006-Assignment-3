@@ -1,3 +1,9 @@
+// Coder/Developer: Paul Cimarusti, Cesar Fandino, & Raven Suggs
+// Class:           COP 2006-80599, Fall 2024
+// Date:            October 24, 2024
+// Description:     C++ Program to generate an amortization table based on given parameters
+// Log:             October 24, 2024, Project file created, basic input validation and amortization algorithm completed
+//                  October 25, 2024, Added code header
 #include <iostream>
 
 //Validate user input for floats
